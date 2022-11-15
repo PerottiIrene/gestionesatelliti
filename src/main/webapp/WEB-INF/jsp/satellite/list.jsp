@@ -67,6 +67,12 @@
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/satellite/show/${satelliteItem.id }">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/satellite/update/${satelliteItem.id }">Edit</a>
 												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/satellite/delete/${satelliteItem.id }">Delete</a>
+												<c:if test="${satelliteItem.stato==null && satelliteItem.dataLancio == null}">
+												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/satellite/lancia/${satelliteItem.id }">Lancia </a>
+												</c:if>
+												<c:if test="${satelliteItem.dataRientro == null}">
+												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/satellite/rientra/${satelliteItem.id }">Rientro </a>
+												</c:if>
 											</td>
 										</tr>
 									</c:forEach>

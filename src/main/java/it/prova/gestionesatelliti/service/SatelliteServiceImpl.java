@@ -1,17 +1,20 @@
 package it.prova.gestionesatelliti.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 import it.prova.gestionesatelliti.repository.SatelliteRepository;
 
 @Service
@@ -77,6 +80,25 @@ public class SatelliteServiceImpl implements SatelliteService{
 		};
 
 		return repository.findAll(specificationCriteria);
+	}
+
+	@Override
+	public void lancia(Long id) {
+		Satellite satelliteInstance = repository.findById(id).orElse(null);
+		
+		satelliteInstance.setDataLancio(new Date());
+		satelliteInstance.setStato(StatoSatellite.IN_MOVIMENTO);
+		repository.save(satelliteInstance);
+		
+	}
+
+	@Override
+	public void rientra(Long id) {
+        Satellite satelliteInstance = repository.findById(id).orElse(null);
+		
+		satelliteInstance.setDataRientro(new Date());
+		satelliteInstance.setStato(StatoSatellite.DISATTIVATO);
+		repository.save(satelliteInstance);
 	}
 	
 

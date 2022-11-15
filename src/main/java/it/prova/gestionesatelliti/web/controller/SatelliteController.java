@@ -107,4 +107,22 @@ public class SatelliteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite";
 	}
+	
+	@GetMapping("/lancia/{idSatellite}")
+	public String lancia(@PathVariable(required = true) Long idSatellite, Model model,RedirectAttributes redirectAttrs) {
+		
+        satelliteService.lancia(idSatellite);
+        
+		redirectAttrs.addFlashAttribute("successMessage", "Lancio eseguito correttamente");
+		return  "redirect:/satellite";
+}
+	
+	@GetMapping("/rientra/{idSatellite}")
+	public String rientra(@PathVariable(required = true) Long idSatellite, Model model,RedirectAttributes redirectAttrs) {
+		
+        satelliteService.rientra(idSatellite);
+        
+		redirectAttrs.addFlashAttribute("successMessage", "Rientro eseguito correttamente");
+		return  "redirect:/satellite";
+}
 }
