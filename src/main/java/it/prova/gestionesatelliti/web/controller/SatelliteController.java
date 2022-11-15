@@ -88,4 +88,23 @@ public class SatelliteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite";
 	}
+	
+	@GetMapping("/update/{idSatellite}")
+	public String update(@PathVariable(required = true) Long idSatellite, Model model) {
+		model.addAttribute("update_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
+		return "satellite/update";
+	}
+
+	@PostMapping("/executeUpdate")
+	public String update(@Valid @ModelAttribute("update_satellite_attr") Satellite satelliteInstance, BindingResult result,
+			RedirectAttributes redirectAttrs) {
+
+		if (result.hasErrors())
+			return "satellite/update";
+
+		satelliteService.aggiorna(satelliteInstance);
+
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/satellite";
+	}
 }
