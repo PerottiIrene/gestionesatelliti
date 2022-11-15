@@ -16,5 +16,7 @@ public interface SatelliteService {
 	public void inserisciNuovo(Satellite satelliteInstance);
 
 	public void rimuovi(Long idSatellite);
+	
+	public List<Satellite> findByExample(Satellite example);
 
 }

@@ -22,11 +22,11 @@ public class Satellite {
 	@Column(name = "id")
 	private Long id;
 	
-	@NotBlank(message = "{impiegato.denominazione.notblank}")
+	@NotBlank(message = "{satellite.denominazione.notblank}")
 	@Column(name = "denominazione")
 	private String denominazione;
 
-	@NotBlank(message = "{impiegato.codice.notblank}")
+	@NotBlank(message = "{satellite.codice.notblank}")
 	@Column(name = "codice")
 	private String codice;
 	
@@ -40,7 +40,7 @@ public class Satellite {
 	@Enumerated(EnumType.STRING)
 	private StatoSatellite stato;
 	
-	private Satellite() {}
+	public Satellite() {}
 
 	public Long getId() {
 		return id;
