@@ -64,8 +64,9 @@ public class SatelliteController {
 		if (result.hasErrors())
 			return "satellite/insert";
 		
+		//messagio di errore nel messages properties
 		if(satellite.getStato() != null && satellite.getDataLancio() == null) {
-			result.rejectValue("dataLancio", "status.error", "se lo stato e' valorizzato, la data deve essere valorizzata");
+			result.rejectValue("dataLancio", "dataLancio.stato.non.valorizzato");
 			return "satellite/insert";
 		}
 		
@@ -173,6 +174,11 @@ public class SatelliteController {
 		
 		if(satelliteInstance.getStato() == StatoSatellite.IN_MOVIMENTO || satelliteInstance.getStato() == StatoSatellite.FISSO && satelliteInstance.getDataRientro() != null) {
 			result.rejectValue("dataRientro", "status.error", "la data di rientro non puo essere inserita prima che il satellite rientri");
+			return "satellite/update";
+		}
+		
+		if(satelliteInstance.getStato() == StatoSatellite.DISATTIVATO && satelliteInstance.getDataRientro().after(new Date())) {
+			result.rejectValue("dataRientro", "status.error", "la data di rientro non puo essere modificata poiche lo stato e' disattivato");
 			return "satellite/update";
 		}
 
