@@ -30,5 +30,7 @@ public interface SatelliteService {
 	List<Satellite> findAllByStatoIsDisattivatoAndDataRientroIsNull();
 	
 	List<Satellite> findAllByDataLancioLessThenAndStatoLike();
+	
+	public List<Satellite> disabilitaTutti();
 
 }

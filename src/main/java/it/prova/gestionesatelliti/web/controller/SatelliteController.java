@@ -90,7 +90,7 @@ public class SatelliteController {
 			return "satellite/insert";
 		}
 		
-		if(satellite.getDataLancio().after(new Date()) && satellite.getStato() != null) {
+		if(satellite.getDataLancio() != null && satellite.getDataLancio().after(new Date()) && satellite.getStato() != null) {
 			result.rejectValue("stato", "status.error", "la data lancio e' futura, lo stato non puo essere valorizzato!");
 			return "satellite/insert";
 		}
@@ -229,7 +229,30 @@ public class SatelliteController {
 		return "satellite/list";
 	}
 	
+	@GetMapping("/confermaDisabilita")
+		public ModelAndView confermaDisabilita() {
+			ModelAndView mv = new ModelAndView();
+			List<Satellite> results = satelliteService.listAllElements();
+			List<Satellite> listaDisabilita=satelliteService.disabilitaTutti();
+			mv.addObject("satellite_list_attribute", results);
+			mv.addObject("satellite_list_disabilita", listaDisabilita);
+			mv.setViewName("satellite/confermaDisabilita");
+			return mv;
+	}
 	
+	@PostMapping("/disabilitaTutti")
+	public String disabilitaTutti(RedirectAttributes redirectAttrs) {
+        
+		List<Satellite> listaSatelliti=satelliteService.disabilitaTutti();
+		for(Satellite satelliteItem:listaSatelliti){
+			satelliteItem.setStato(StatoSatellite.DISATTIVATO);
+			satelliteItem.setDataRientro(new Date());
+			satelliteService.aggiorna(satelliteItem);
+		}
+		
+		redirectAttrs.addFlashAttribute("successMessage", "I satelliti sono stati disabilitati");
+		return "redirect:/satellite";
+	}
 	
 	
 }

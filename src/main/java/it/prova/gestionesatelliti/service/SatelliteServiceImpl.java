@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -124,6 +125,16 @@ public class SatelliteServiceImpl implements SatelliteService{
 		dataConfronto.setYear(dataConfronto.getYear()-10);
 		
 		return repository.findAllByDataLancioBeforeAndStatoLike(dataConfronto, StatoSatellite.FISSO);
+		
+	}
+
+	@Override
+	public List<Satellite> disabilitaTutti() {
+		Date dataLancio= new Date();
+		Date dataRientro= new Date();
+		List<Satellite> satellitiNonRientrati=repository.satellitiNonAncoraRientratiEConStatoInMovimentoOFisso(dataLancio, dataRientro);
+		
+		return satellitiNonRientrati;
 		
 	}
 	

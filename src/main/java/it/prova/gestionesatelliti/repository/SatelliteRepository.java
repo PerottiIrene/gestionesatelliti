@@ -19,6 +19,9 @@ public interface SatelliteRepository extends CrudRepository<Satellite, Long>, Jp
 	
 	List<Satellite> findAllByDataLancioBeforeAndStatoLike(Date data, StatoSatellite statoSatellite);
 	
+	@Query("select s from Satellite s where s.dataLancio < ?1 and s.dataRientro = NULL or s.dataRientro > ?2 and s.stato ='IN_MOVIMENTO' or s.stato='FISSO'")
+	List<Satellite> satellitiNonAncoraRientratiEConStatoInMovimentoOFisso(Date dataPerConfrontoLancio, Date dataPerConfrontoRientro);
+	
 	
 	
 	
