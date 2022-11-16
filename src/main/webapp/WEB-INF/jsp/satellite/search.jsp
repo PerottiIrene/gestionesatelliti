@@ -33,12 +33,12 @@
 							
 								<div class="col-md-6">
 									<label for="denominazione" class="form-label">Denominazione </label>
-									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire il nome"  >
+									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire la denominazione"  >
 								</div>
 								
 								<div class="col-md-6">
 									<label for="codice" class="form-label">Codice </label>
-									<input type="text" name="codice" id="codice" class="form-control" placeholder="Inserire il cognome"  >
+									<input type="text" name="codice" id="codice" class="form-control" placeholder="Inserire il codice"  >
 								</div>
 							
 								<div class="col-md-3">

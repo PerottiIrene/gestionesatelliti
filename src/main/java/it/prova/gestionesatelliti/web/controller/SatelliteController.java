@@ -84,6 +84,16 @@ public class SatelliteController {
 			return "satellite/insert";
 		}
 		
+		if(satellite.getDataRientro() != null && satellite.getStato() != StatoSatellite.DISATTIVATO) {
+			result.rejectValue("dataRientro", "status.error", "se e' presente la data di rientro, lo stato deve essere disattivato");
+			return "satellite/insert";
+		}
+		
+		if(satellite.getDataLancio().after(new Date()) && satellite.getStato() != null) {
+			result.rejectValue("stato", "status.error", "la data lancio e' futura, lo stato non puo essere valorizzato!");
+			return "satellite/insert";
+		}
+		
 		if(satellite.getDataLancio() != null && satellite.getDataRientro() != null && satellite.getDataLancio().after(satellite.getDataRientro())) {
 			result.rejectValue("dataRientro", "status.error", "la data di rientro non puo essere inferiore alla data lancio");
 			return "satellite/insert";
