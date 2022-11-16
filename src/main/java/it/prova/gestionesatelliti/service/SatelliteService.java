@@ -1,8 +1,10 @@
 package it.prova.gestionesatelliti.service;
 
+import java.util.Date;
 import java.util.List;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 
 
 public interface SatelliteService {
@@ -22,5 +24,11 @@ public interface SatelliteService {
 	public void lancia(Long id);
 	
 	public void rientra(Long id);
+	
+	List<Satellite> satellitiLanciatiDaPiuDiDueAnni();
+	
+	List<Satellite> findAllByStatoIsDisattivatoAndDataRientroIsNull();
+	
+	List<Satellite> findAllByDataLancioLessThenAndStatoLike();
 
 }

@@ -1,5 +1,7 @@
 package it.prova.gestionesatelliti.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -99,6 +101,30 @@ public class SatelliteServiceImpl implements SatelliteService{
 		satelliteInstance.setDataRientro(new Date());
 		satelliteInstance.setStato(StatoSatellite.DISATTIVATO);
 		repository.save(satelliteInstance);
+	}
+
+	@Override
+	public List<Satellite> satellitiLanciatiDaPiuDiDueAnni() {
+		
+		Date dataConfronto = new Date();
+		dataConfronto.setYear(dataConfronto.getYear()-2);
+		return repository.satellitiLanciatiDaPiuDiDueAnni(dataConfronto);
+	}
+
+	@Override
+	public List<Satellite> findAllByStatoIsDisattivatoAndDataRientroIsNull() {
+		
+		return repository.findAllByStatoLikeAndDataRientroIsNull(StatoSatellite.DISATTIVATO);
+	}
+
+	@Override
+	public List<Satellite> findAllByDataLancioLessThenAndStatoLike() {
+		
+		Date dataConfronto = new Date();
+		dataConfronto.setYear(dataConfronto.getYear()-10);
+		
+		return repository.findAllByDataLancioBeforeAndStatoLike(dataConfronto, StatoSatellite.FISSO);
+		
 	}
 	
 

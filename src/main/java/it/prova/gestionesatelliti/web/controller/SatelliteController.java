@@ -191,4 +191,29 @@ public class SatelliteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Rientro eseguito correttamente");
 		return "redirect:/satellite";
 	}
+	
+	@GetMapping("/ricerca1")
+	public String ricercaSatellitiDaDueAnniNonDisattivati(Satellite example, ModelMap model) {
+		List<Satellite> results = satelliteService.satellitiLanciatiDaPiuDiDueAnni();
+		model.addAttribute("satellite_list_attribute", results);
+		return "satellite/list";
+	}
+	
+	@GetMapping("/ricerca2")
+	public String ricercaSatellitiDisattivatiEDataNull(Satellite example, ModelMap model) {
+		List<Satellite> results = satelliteService.findAllByStatoIsDisattivatoAndDataRientroIsNull();
+		model.addAttribute("satellite_list_attribute", results);
+		return "satellite/list";
+	}
+	
+	@GetMapping("/ricerca3")
+	public String ricercaSatellitiFissiDieciAnniFa(Satellite example, ModelMap model) {
+		List<Satellite> results = satelliteService.findAllByDataLancioLessThenAndStatoLike();
+		model.addAttribute("satellite_list_attribute", results);
+		return "satellite/list";
+	}
+	
+	
+	
+	
 }
